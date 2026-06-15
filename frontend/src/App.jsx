@@ -6,7 +6,7 @@ function App() {
   const [usuarioLogueado, setUsuarioLogueado] = useState(null);
 
   return usuarioLogueado ? (
-    <UserList onLogout={() => setUsuarioLogueado(null)} />
+    <UserList usuario={usuarioLogueado} onLogout={() => setUsuarioLogueado(null)} />
   ) : (
     <Login onLoginSuccess={(usuario) => setUsuarioLogueado(usuario)} />
   );
