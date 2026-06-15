@@ -14,11 +14,8 @@ function Login({ onLoginSuccess }) {
 
     setLoading(true);
 
-    // SIMULACIÓN DE RETRASO DE RED (MOCK)
     setTimeout(() => {
       setLoading(false);
-      
-      // VALIDACIÓN LOCAL TEMPORAL
       if (username === "admin" && password === "admin123") {
         const usuarioMock = {
           id: 1,
@@ -26,12 +23,11 @@ function Login({ onLoginSuccess }) {
           email: "admin@sistema.cl",
           nombre: "Administrador Probador"
         };
-        // Pasamos el usuario simulado para cambiar de pantalla
         onLoginSuccess(usuarioMock);
       } else {
         alert("Credenciales incorrectas (Prueba con admin / admin123)");
       }
-    }, 600); // Se congela medio segundo para simular una carga real
+    }, 600);
   };
 
   return (
@@ -46,6 +42,14 @@ function Login({ onLoginSuccess }) {
         padding: "20px",
       }}
     >
+      {/* Inyección de estilo para cambiar el color de los placeholders */}
+      <style>{`
+        input::placeholder {
+          color: #94a3b8 !important;
+          opacity: 1;
+        }
+      `}</style>
+
       <div
         style={{
           width: "100%",
@@ -74,45 +78,22 @@ function Login({ onLoginSuccess }) {
           >
             🛡️
           </div>
-          <h2
-            style={{
-              color: "#0f172a",
-              margin: "0 0 8px 0",
-              fontWeight: "700",
-              fontSize: "24px",
-            }}
-          >
+          <h2 style={{ color: "#0f172a", margin: "0 0 8px 0", fontWeight: "700", fontSize: "24px" }}>
             Acceso al Sistema
           </h2>
-          <p
-            style={{
-              color: "#64748b",
-              margin: "0",
-              fontSize: "14px",
-            }}
-          >
-            [MODO MOCK ENTRAR CON ADMIN/ADMIN123]
+          <p style={{ color: "#64748b", margin: "0", fontSize: "14px" }}>
+            Ingresa tus credenciales de administrador
           </p>
         </div>
 
         <form onSubmit={handleSubmit}>
           <div style={{ marginBottom: "20px" }}>
-            <label
-              style={{
-                display: "block",
-                marginBottom: "8px",
-                color: "#334155",
-                fontWeight: "600",
-                fontSize: "13px",
-                textTransform: "uppercase",
-                letterSpacing: "0.5px",
-              }}
-            >
+            <label style={{ display: "block", marginBottom: "8px", color: "#334155", fontWeight: "600", fontSize: "13px", textTransform: "uppercase", letterSpacing: "0.5px" }}>
               Usuario
             </label>
             <input
               type="text"
-              placeholder="Ej: admin"
+              placeholder="Introduce tu usuario"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               style={{
@@ -138,22 +119,12 @@ function Login({ onLoginSuccess }) {
           </div>
 
           <div style={{ marginBottom: "30px" }}>
-            <label
-              style={{
-                display: "block",
-                marginBottom: "8px",
-                color: "#334155",
-                fontWeight: "600",
-                fontSize: "13px",
-                textTransform: "uppercase",
-                letterSpacing: "0.5px",
-              }}
-            >
+            <label style={{ display: "block", marginBottom: "8px", color: "#334155", fontWeight: "600", fontSize: "13px", textTransform: "uppercase", letterSpacing: "0.5px" }}>
               Contraseña
             </label>
             <input
               type="password"
-              placeholder="••••••••"
+              placeholder="Introduce tu contraseña"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               style={{
@@ -193,12 +164,8 @@ function Login({ onLoginSuccess }) {
               fontSize: "15px",
               transition: "background-color 0.2s",
             }}
-            onMouseOver={(e) => {
-              if (!loading) e.target.style.backgroundColor = "#1d4ed8";
-            }}
-            onMouseOut={(e) => {
-              if (!loading) e.target.style.backgroundColor = "#2563eb";
-            }}
+            onMouseOver={(e) => { if (!loading) e.target.style.backgroundColor = "#1d4ed8"; }}
+            onMouseOut={(e) => { if (!loading) e.target.style.backgroundColor = "#2563eb"; }}
           >
             {loading ? "Autenticando..." : "Iniciar Sesión"}
           </button>
